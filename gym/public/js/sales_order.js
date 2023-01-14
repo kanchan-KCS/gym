@@ -1,10 +1,36 @@
+frappe.ui.form.on("Sales Order", {
+  refresh: (frm) => {
+    if (!frm.is_new() && frm.doc.status != "Draft") {
+      //  because button gets disappear after form submission
+      for (let r in frm.doc.items) {
+        const btn_wrapper = $(
+          `<button  class="btn btn-xs input-sm btn-primary" style="height:24px;"data-name="${frm.doc.items[r].name}">View Stock Availability</button>`
+        ).on("click", function (e) {
+          disable_rendering_row(e, r);
+        });
+        frm.fields_dict["items"].grid.grid_rows[
+          r
+        ].columns.view_stock_availability.field_area.attr("style", "");
+        frm.fields_dict["items"].grid.grid_rows[
+          r
+        ].columns.view_stock_availability.field_area.html(btn_wrapper);
+      }
+    }
+  },
+});
 frappe.ui.form.on("Sales Order Item", {
   view_stock_availability: (frm, cdt, cdn) => {
-    if (!frm.is_new()) {
-      const row = locals[cdt][cdn];
+    const row = locals[cdt][cdn];
+    if (row.warehouse && row.item_code) {
       const qty = get_qty(row);
       if (qty != "error") render_dialog(row, qty);
     }
+  },
+  form_render: (frm, cdt, cdn) => {
+    const row = locals[cdt][cdn];
+    frm.fields_dict["items"].grid.grid_rows[
+      row.idx - 1
+    ].columns.view_stock_availability.field_area.attr("style", "");
   },
 });
 const render_dialog = (row, qty) => {
@@ -62,4 +88,18 @@ const get_qty = (row) => {
     },
   });
   return qty;
+};
+
+const disable_rendering_row = (e, r) => {
+  const cdn = e.currentTarget.attributes["data-name"].value;
+  const qty = get_qty(locals["Sales Order Item"][cdn]);
+  if (qty != "error") render_dialog(locals["Sales Order Item"][cdn], qty);
+  setTimeout(() => {
+    cur_frm.fields_dict["items"].grid.grid_rows[
+      r
+    ].columns.view_stock_availability.field_area.attr("style", "");
+    $(`.grid-row[data-name="${cdn}"]`).removeClass("grid-row-open");
+    $(`.grid-row[data-name="${cdn}"]`).find(".data-row").attr("style", "");
+    frappe.dom.unfreeze();
+  }, 200);
 };
