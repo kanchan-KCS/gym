@@ -31,3 +31,9 @@ def get_item_val(doctype, txt, searchfield, page_len, start, filters):
     else:
         sql = ''' select name from `tabItem` where has_variants=1 '''
     return frappe.db.sql(sql)
+@frappe.whitelist(allow_guest=False)
+def get_class_time(class_name):
+    if class_name:
+        doc=frappe.get_doc('Activity Type',class_name)
+        data={'from_time':doc.from_time,'to_time':doc.to_time}
+        return data
