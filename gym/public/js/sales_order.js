@@ -65,7 +65,7 @@ const get_options = (row, qty) => {
             <tr>
             <td class="text-center"><input type="checkbox"></td>
             <td>${row.warehouse}</td>
-            <td>${qty[0]["actual_qty"]}</td>
+            <td>${qty}</td>
             </tr>
             </tbody></table></div>
             <div>`;

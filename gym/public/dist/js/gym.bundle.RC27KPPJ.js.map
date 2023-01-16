@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../apps/gym/gym/public/js/gym.bundle.js"],
-  "sourcesContent": ["frappe.ui.form.ControlButton.prototype.make_input = function () {\n  let me = this;\n  let btn_type;\n  if (this.doctype == \"Sales Order Item\") btn_type = \"btn-primary\";\n  else btn_type = this.df.primary ? \"btn-primary\" : \"btn-default\";\n  const btn_size = this.df.btn_size ? `btn-${this.df.btn_size}` : \"btn-xs\";\n  this.$input = $(`<button class=\"btn ${btn_size} ${btn_type}\">`)\n    .prependTo(me.input_area)\n    .on(\"click\", function () {\n      me.onclick();\n    });\n  this.input = this.$input.get(0);\n  this.set_input_attributes();\n  this.has_input = true;\n  this.toggle_label(false);\n};\n"],
-  "mappings": ";;AAAA,SAAO,GAAG,KAAK,cAAc,UAAU,aAAa,WAAY;AAC9D,QAAI,KAAK;AACT,QAAI;AACJ,QAAI,KAAK,WAAW;AAAoB,iBAAW;AAAA;AAC9C,iBAAW,KAAK,GAAG,UAAU,gBAAgB;AAClD,UAAM,WAAW,KAAK,GAAG,WAAW,OAAO,KAAK,GAAG,aAAa;AAChE,SAAK,SAAS,EAAE,sBAAsB,YAAY,YAAY,EAC3D,UAAU,GAAG,UAAU,EACvB,GAAG,SAAS,WAAY;AACvB,SAAG,QAAQ;AAAA,IACb,CAAC;AACH,SAAK,QAAQ,KAAK,OAAO,IAAI,CAAC;AAC9B,SAAK,qBAAqB;AAC1B,SAAK,YAAY;AACjB,SAAK,aAAa,KAAK;AAAA,EACzB;",
-  "names": []
-}

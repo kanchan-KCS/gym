@@ -1,3 +1,4 @@
+
 frappe.ui.form.ControlButton.prototype.make_input = function () {
   let me = this;
   let btn_type;
@@ -14,3 +15,5 @@ frappe.ui.form.ControlButton.prototype.make_input = function () {
   this.has_input = true;
   this.toggle_label(false);
 };
+
+
