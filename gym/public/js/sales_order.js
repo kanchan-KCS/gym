@@ -21,9 +21,9 @@ frappe.ui.form.on("Sales Order", {
 frappe.ui.form.on("Sales Order Item", {
   view_stock_availability: (frm, cdt, cdn) => {
     const row = locals[cdt][cdn];
-    if (row.warehouse && row.item_code) {
+    if (row.item_code) {
       const qty = get_qty(row);
-      if (qty != "error") render_dialog(row, qty);
+      if (qty != "error" && qty.length>0) render_dialog(qty);
     }
   },
   form_render: (frm, cdt, cdn) => {
@@ -33,7 +33,7 @@ frappe.ui.form.on("Sales Order Item", {
     ].columns.view_stock_availability.field_area.attr("style", "");
   },
 });
-const render_dialog = (row, qty) => {
+const render_dialog = (qty) => {
   const d = new frappe.ui.Dialog({
     title: "Stock Detail",
     fields: [
@@ -41,7 +41,7 @@ const render_dialog = (row, qty) => {
         label: "",
         fieldname: "",
         fieldtype: "HTML",
-        options: get_options(row, qty),
+        options: get_options(qty),
       },
     ],
   });
@@ -50,7 +50,7 @@ const render_dialog = (row, qty) => {
   d.$wrapper.find(".standard-actions").hide();
 };
 
-const get_options = (row, qty) => {
+const get_options = (qty) => {
   const html = `<div class="container-fluid">
           <div class="table-responsive" id="tab">
           <table class="table table-bordered   table-hover">
@@ -62,11 +62,12 @@ const get_options = (row, qty) => {
                 </tr>
             </thead>
             <tbody>
-            <tr>
+            ${qty.map((q)=>`<tr>
             <td class="text-center"><input type="checkbox"></td>
-            <td>${row.warehouse}</td>
-            <td>${qty}</td>
-            </tr>
+            <td>${q.warehouse}</td>
+            <td>${q.actual_qty}</td>
+            </tr>`).join("")}
+            
             </tbody></table></div>
             <div>`;
   return html;
@@ -78,7 +79,6 @@ const get_qty = (row) => {
     method: "gym.api.get_stock_qty",
     async: 0,
     args: {
-      warehouse: row.warehouse,
       item_code: row.item_code,
     },
     callback: (r) => {
@@ -93,7 +93,7 @@ const get_qty = (row) => {
 const disable_rendering_row = (e, r) => {
   const cdn = e.currentTarget.attributes["data-name"].value;
   const qty = get_qty(locals["Sales Order Item"][cdn]);
-  if (qty != "error") render_dialog(locals["Sales Order Item"][cdn], qty);
+  if (qty != "error" && qty.length>0) render_dialog(qty);
   setTimeout(() => {
     cur_frm.fields_dict["items"].grid.grid_rows[
       r
