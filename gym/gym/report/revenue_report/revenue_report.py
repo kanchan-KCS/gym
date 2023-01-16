@@ -365,11 +365,11 @@ def get_conditions(filters):
     if filters.get("month"):
         conditions += " and MONTH(posting_date) = %(month)s"
     if filters.get("year"):
-        start_date,end_date = frappe.db.get_value('Fiscal Year',{'name':filters.get('year')},['year_start_date','year_end_date'])
-        filters.update(dict(start_date=start_date,end_date=end_date))
+        start_date, end_date = frappe.db.get_value(
+            'Fiscal Year', {'name': filters.get('year')}, ['year_start_date', 'year_end_date'])
+        filters.update(dict(start_date=start_date, end_date=end_date))
         conditions += " and posting_date>= %(start_date)s and posting_date<= %(end_date)s"
 
-    print(conditions,filters)
     if filters.get("owner"):
         conditions += " and owner = %(owner)s"
 
@@ -439,8 +439,6 @@ def get_invoice_income_map(invoice_list):
         as_dict=1,
     )
 
-
-	
     invoice_income_map = {}
     for d in income_details:
         invoice_income_map.setdefault(
