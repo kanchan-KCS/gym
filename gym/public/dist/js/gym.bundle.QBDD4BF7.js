@@ -1,0 +1,2 @@
+(()=>{frappe.ui.form.ControlButton.prototype.make_input=function(){let i=this,t;this.doctype=="Sales Order Item"?t="btn-primary":t=this.df.primary?"btn-primary":"btn-default";let n=this.df.btn_size?`btn-${this.df.btn_size}`:"btn-xs";this.$input=$(`<button class="btn ${n} ${t}">`).prependTo(i.input_area).on("click",function(){i.onclick()}),this.input=this.$input.get(0),this.set_input_attributes(),this.has_input=!0,this.toggle_label(!1)};})();
+//# sourceMappingURL=gym.bundle.QBDD4BF7.js.map

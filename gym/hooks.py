@@ -12,7 +12,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/gym/css/gym.css"
-# app_include_js = "/assets/gym/js/gym.js"
+app_include_js = ['gym.bundle.js']
 
 # include js, css files in header of web template
 # web_include_css = "/assets/gym/css/gym.css"
@@ -31,6 +31,7 @@ app_license = "MIT"
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {"Customer" : "public/js/controllers/customer.js",
+				"Sales Order" : "public/js/sales_order.js",
 	"Party Specific Item":"public/js/controllers/party_specific_item.js"}
 
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
