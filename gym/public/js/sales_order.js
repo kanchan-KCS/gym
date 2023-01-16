@@ -21,6 +21,21 @@ frappe.ui.form.on("Sales Order", {
 frappe.ui.form.on("Sales Order Item", {
   view_stock_availability: (frm, cdt, cdn) => {
     const row = locals[cdt][cdn];
+    if (row.warehouse && row.item_code) {
+      const qty = get_qty(row);
+      if (qty != "error") render_dialog(row, qty);
+    }
+  },
+  form_render: (frm, cdt, cdn) => {
+    const row = locals[cdt][cdn];
+    frm.fields_dict["items"].grid.grid_rows[
+      row.idx - 1
+    ].columns.view_stock_availability.field_area.attr("style", "");
+  },
+});
+frappe.ui.form.on("Sales Order Item", {
+  view_stock_availability: (frm, cdt, cdn) => {
+    const row = locals[cdt][cdn];
     if (row.item_code) {
       const qty = get_qty(row);
       if (qty != "error" && qty.length>0) render_dialog(qty);

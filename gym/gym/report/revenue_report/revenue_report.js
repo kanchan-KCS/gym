@@ -27,6 +27,12 @@ frappe.query_reports["Revenue Report"] = {
         frappe.datetime.str_to_obj(frappe.datetime.get_today()).getMonth() + 1,
     },
     {
+      fieldname: "year",
+      label: __("Year"),
+      fieldtype: "Link",
+      options: "Fiscal Year",
+    },
+    {
       fieldname: "customer",
       label: __("Customer"),
       fieldtype: "Link",
