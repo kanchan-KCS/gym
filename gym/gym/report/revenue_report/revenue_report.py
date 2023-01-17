@@ -422,7 +422,7 @@ def get_invoices(filters):
 		base_net_total, base_grand_total, base_rounded_total, outstanding_amount,
 		is_internal_customer, represents_company, company 
 		from `tabSales Invoice`
-		where docstatus = 1 %s order by posting_date desc, name desc""".format(
+		where docstatus = 1 and status="Paid" %s order by posting_date desc, name desc""".format(
         )
         % conditions,
         filters,
