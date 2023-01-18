@@ -10,6 +10,10 @@ def check_membership(name):
             doc=frappe.get_doc('Employee',{'user_id':gym_trainer[0]['allocated_to']})
             if doc.emergency_phone_number:
                 current_plan[0]['phone_number']=doc.emergency_phone_number
+            else:
+                current_plan[0]['phone_number']='No Number'
+
+
             current_plan[0]['gym_trainer']=doc.employee_name
             
     
@@ -29,7 +33,7 @@ def get_item_val(doctype, txt, searchfield, page_len, start, filters):
     if assign_locker==1:
         sql=''' select name from `tabItem` where name not in (select based_on_value from `tabParty Specific Item`)  and name like "Locker%" order by creation'''
     else:
-        sql = ''' select name from `tabItem` where has_variants=1 '''
+        sql = ''' select name from `tabItem` where item_group="Subscription Plan" '''
     return frappe.db.sql(sql)
 @frappe.whitelist(allow_guest=False)
 def get_class_time(class_name):
@@ -37,3 +41,13 @@ def get_class_time(class_name):
         doc=frappe.get_doc('Activity Type',class_name)
         data={'from_time':doc.from_time,'to_time':doc.to_time}
         return data
+
+@frappe.whitelist(allow_guest=False)
+def check_locker_allocation():
+    gym_set=frappe.get_doc('Gym Settings')
+    max_val=gym_set.maximum_number_of_lockers
+    loc_assigned=frappe.db.sql('select count(name) as locker_available from `tabParty Specific Item` where assign_locker=1',as_dict=1)
+    if max_val<=loc_assigned[0]['locker_available']:
+        return 0
+    else:
+        return 1

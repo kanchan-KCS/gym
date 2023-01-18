@@ -10,6 +10,7 @@
  "field_order": [
   "customer",
   "tranier",
+  "trainer_name",
   "ratings",
   "comments"
  ],
@@ -25,7 +26,6 @@
   {
    "fieldname": "tranier",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Trainer",
    "options": "Employee",
    "reqd": 1
@@ -41,11 +41,19 @@
    "fieldname": "comments",
    "fieldtype": "Long Text",
    "label": "Comments"
+  },
+  {
+   "fetch_from": "tranier.first_name",
+   "fieldname": "trainer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Trainer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-16 14:53:47.292986",
+ "modified": "2023-01-17 10:59:05.673932",
  "modified_by": "Administrator",
  "module": "Gym",
  "name": "Ratings and Review",

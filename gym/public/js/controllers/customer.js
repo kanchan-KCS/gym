@@ -19,8 +19,10 @@ function customer_subscription(frm){
                 <p><b>Plan Start Date: </b> ${r.message[0][0]['start_date']}</p>
                 <p><b>Plan End Date: </b> ${r.message[0][0]['end_date']}</p>
                 <p><b>Plan Remaining days in subscription: </b>${r.message[0][0]['days_left']}</p>
-                <p><b>Gym Trainer: </b>${r.message[0][0]['gym_trainer']}</p>
-                <p><b>Phone Number: </b>${r.message[0][0]['phone_number']}</p>`
+                <p><b>Gym Trainer: </b>${r.message[0][0]['gym_trainer']}</p>`
+                if(r.message[0][0]['phone_number']!='No Number'){
+                    data+=`<p><b>Phone Number: </b>${r.message[0][0]['phone_number']}</p>`
+                }
                 if(r.message[1].length>0){
                     data+=`<h3>Old Plans</h3>`
                     for(let i=0;i<r.message[1].length;i++){
@@ -32,6 +34,10 @@ function customer_subscription(frm){
                     }
                 }
                 frm.set_df_property("my_subscription", "options", data);
+
+            }
+            else{
+                frm.set_df_property("subscription", "hidden", 1);
 
             }
         }

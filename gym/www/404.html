@@ -1,0 +1,23 @@
+{% extends "templates/web.html" %}
+
+{%- block title -%}{{_("Page Not Found")}}{%- endblock -%}
+
+{% block page_content %}
+
+<script>
+	window.is_404 = true;
+</script>
+
+<div class="error-page">
+	<img class="img_404" src="/assets/gym/images/page_not_found.jpg" />
+	<div>
+		<h2 class="mb-1 mt-4">
+            <div class="text-muted error-text">
+                {{ _("Page Not Found.") }}
+            </div>		</h2>
+		
+		<div class="mt-6 back-to-home"><a href='/' class='btn btn-info'>{{ _("Back to Home Page") }}</a></div>
+	</div>
+</div>
+
+{% endblock %}

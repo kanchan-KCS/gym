@@ -1,0 +1,27 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2023-01-14 13:49:58.695352",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2023-01-17 10:40:18.884974",
+ "modified_by": "Administrator",
+ "module": "Gym",
+ "name": "Popular Classes",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "select BGC.class_name as \"Class Name:Data:300\",CC.from_time as \"From Time:Time:300\",CC.to_time as \"To Time:Time:300\",count(BC.name) as \"Booking Count:Data:300\" from `tabBook Group Classes` as BGC inner join `tabBook Class`as BC on BGC.parent=BC.name inner join `tabActivity Type` as CC on CC.name=BGC.class_name group by class_name order by count(BC.name) desc;",
+ "ref_doctype": "Book Class",
+ "report_name": "Popular Classes",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ]
+}

@@ -97,6 +97,7 @@ const get_qty = (row) => {
       item_code: row.item_code,
     },
     callback: (r) => {
+      console.log(r.message,"r.message")
       if (r.message) {
         qty = r.message;
       }
